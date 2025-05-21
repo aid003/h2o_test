@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import 'modern-normalize/modern-normalize.css';
+
+body {
+  background: white;
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}

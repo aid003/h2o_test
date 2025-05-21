@@ -1,0 +1,57 @@
+/* контейнер-карточка */
+.container {
+  background: #fff;
+  border: 2px solid rgba(14, 165, 233, 0.8); /* border-sky-500/80 */
+  border-radius: 20px;
+  padding: 1.5rem; /* p-6 */
+}
+
+/* заголовок */
+.title {
+  margin-bottom: 1rem; /* mb-4 */
+  font-size: 1.125rem; /* text-lg ≈ 18 px */
+  font-weight: 600; /* font-semibold */
+}
+
+/* обёртка для LineChart */
+.chartWrapper {
+  position: relative;
+  height: 320px; /* h-[320px] */
+}
+
+/* легенда */
+.legend {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* mobile → 2 */
+  gap: 0.5rem; /* gap-2 */
+  padding-top: 1rem; /* pt-4 */
+  font-size: 0.875rem; /* text-sm */
+}
+
+@media (min-width: 640px) {
+  /* sm: */
+  .legend {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  /* lg: */
+  .legend {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* один пункт легенды */
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+}
+
+/* кружок-маркер */
+.bullet {
+  width: 0.75rem; /* w-3 */
+  height: 0.75rem; /* h-3 */
+  border-radius: 9999px; /* rounded-full */
+}

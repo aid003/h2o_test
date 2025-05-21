@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  position: relative;
+  height: 100vh;
+}
+
+.main {
+  position: relative;
+  z-index: 1; /* поверх сайдбара */
+  flex: 1;
+
+  /* сдвигаем мейн влево, чтобы он «накрыл» сайдбар */
+  margin-left: -40px;
+
+  /* смещаем контент внутрь, чтобы текст не прилипал к вырезу */
+  padding: 2rem;
+  padding-left: calc(2rem + 40px);
+
+  background-color: #f9fafb;
+  /* скругляем только левую сторону */
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+}

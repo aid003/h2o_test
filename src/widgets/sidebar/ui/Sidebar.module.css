@@ -1,0 +1,35 @@
+/* src/widgets/sidebar/ui/Sidebar.module.css */
+.sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 0;
+
+  width: 8rem; /* Tailwind w-24  =  24 × 4 px */
+  padding-left: 1.5rem;
+  padding-block: 2rem; /* py-8           =  8 × 0.25rem */
+  gap: 1.5rem; /* gap-6          =  6 × 0.25rem */
+
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  background: linear-gradient(180deg, #54d3c2 0%, #30898a 100%);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.logo {
+  margin-bottom: 1.5rem; /* mb-6 */
+  user-select: none;
+  font-weight: 800;
+  font-size: 2.25rem; /* text-4xl ≈ 36 px */
+  line-height: 1;
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem; /* gap-6 */
+}

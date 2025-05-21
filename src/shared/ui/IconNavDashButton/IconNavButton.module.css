@@ -1,0 +1,22 @@
+.iconNavButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;          /* 40px */
+  height: 2.5rem;         /* 40px */
+  border: none;
+  background: none;
+  border-radius: 0.5rem;  /* 8px */
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.iconNavButtonEnabled {
+  color: #989FA3;
+  cursor: pointer;
+}
+
+.iconNavButtonDisabled {
+  color: #D2D1D1;
+  cursor: default;
+}
