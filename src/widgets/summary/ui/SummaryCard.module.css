@@ -4,9 +4,9 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 1.5rem;   
-  padding: 1.5rem;        
+  padding: 2rem 1.3rem;        
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  width: 16rem;           
+  width: 18rem;           
   text-align: left;
   transition: background-color 0.2s, color 0.2s;
   background-color: #ffffff;

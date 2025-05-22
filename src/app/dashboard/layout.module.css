@@ -16,7 +16,6 @@
   position: relative;
   z-index: 1;
   flex: 1;
-  background-color: #f9fafb;
-  border-top-left-radius: 56px;
-  border-bottom-left-radius: 56px;
+  /* background-color: #f9fafb; */
+  background-color: aquamarine;
 }
