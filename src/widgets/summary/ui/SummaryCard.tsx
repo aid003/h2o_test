@@ -22,7 +22,6 @@ export const SummaryCard = ({
   const positive = deltaPercent >= 0;
   const DeltaIcon = positive ? ArrowUp : ArrowDown;
 
-  // choose header background class based on active state and delta sign
   const headerBgClass = active
     ? positive
       ? styles.headerPositiveActive

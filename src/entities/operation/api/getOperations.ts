@@ -1,9 +1,9 @@
-import { fetcher } from '@/shared/lib/fetcher';
-import { Operation } from '../model/types';
+import { fetcher } from "@/shared/lib/fetcher";
+import { Operation } from "../model/types";
 
 export interface GetOperationsParams {
-  division?: 'B2B' | 'B2C';
-  range?: 'week' | 'month' | 'year';
+  division?: "B2B" | "B2C";
+  range?: "Неделя" | "Месяц" | "Год";
 }
 
 export const getOperations = async <T extends GetOperationsParams>([

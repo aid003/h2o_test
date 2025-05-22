@@ -1,4 +1,3 @@
-// PeriodTabs.tsx
 "use client";
 import { clsx } from 'clsx';
 import styles from './PeriodTabs.module.css';

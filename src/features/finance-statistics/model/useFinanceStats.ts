@@ -1,9 +1,22 @@
-import useSWR from 'swr';
-import React from 'react';
-import { Operation, OperationType } from '@/entities/operation/model/types';
-import { getOperations } from '@/entities/operation/api/getOperations';
+import useSWR from "swr";
+import React from "react";
+import { Operation, OperationType } from "@/entities/operation/model/types";
+import { getOperations } from "@/entities/operation/api/getOperations";
 
-const MONTH_LABELS = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+const MONTH_LABELS = [
+  "Янв",
+  "Фев",
+  "Мар",
+  "Апр",
+  "Май",
+  "Июн",
+  "Июл",
+  "Авг",
+  "Сен",
+  "Окт",
+  "Ноя",
+  "Дек",
+];
 
 export interface ChartPoint {
   month: string;
@@ -12,23 +25,28 @@ export interface ChartPoint {
   income: number;
   debt: number;
 }
-export interface Totals extends Record<OperationType | 'total', number> {}
+export interface Totals extends Record<OperationType | "total", number> {}
 
-export const useFinanceStats = (range: 'Неделя' | 'Месяц' | 'Год') => {
-  const { data, isLoading } = useSWR(['/api/data', { range }], getOperations);
+export const useFinanceStats = (range: "Неделя" | "Месяц" | "Год") => {
+  const { data, isLoading } = useSWR(["/api/data", { range }], getOperations);
 
   const stats = React.useMemo(() => {
-    const makeInit = (): ChartPoint[] => MONTH_LABELS.map((m) => ({
-      month: m, revenue: 0, expanses: 0, income: 0, debt: 0,
-    }));
+    const makeInit = (): ChartPoint[] =>
+      MONTH_LABELS.map((m) => ({
+        month: m,
+        revenue: 0,
+        expanses: 0,
+        income: 0,
+        debt: 0,
+      }));
 
     const init = {
       ALL: makeInit(),
       B2B: makeInit(),
       B2C: makeInit(),
-    } as Record<'ALL' | 'B2B' | 'B2C', ChartPoint[]>;
+    } as Record<"ALL" | "B2B" | "B2C", ChartPoint[]>;
 
-    const totals: Record<'ALL' | 'B2B' | 'B2C', Totals> = {
+    const totals: Record<"ALL" | "B2B" | "B2C", Totals> = {
       ALL: { revenue: 0, expanses: 0, income: 0, debt: 0, total: 0 },
       B2B: { revenue: 0, expanses: 0, income: 0, debt: 0, total: 0 },
       B2C: { revenue: 0, expanses: 0, income: 0, debt: 0, total: 0 },
@@ -36,10 +54,8 @@ export const useFinanceStats = (range: 'Неделя' | 'Месяц' | 'Год')
 
     (data?.data ?? []).forEach((op: Operation) => {
       const idx = new Date(op.date).getMonth();
-      // обновляем конкретное подразделение
       init[op.division][idx][op.type] += op.amount;
       totals[op.division][op.type] += op.amount;
-      // обновляем общий пул
       init.ALL[idx][op.type] += op.amount;
       totals.ALL[op.type] += op.amount;
     });
