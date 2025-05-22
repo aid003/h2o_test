@@ -2,9 +2,7 @@
   display: flex;
   align-items: center;
   height: 64px;
-  padding: 0 24px;
-  background-color: var(--background);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  background-color: white;
 }
 
 .navButtons {
@@ -14,8 +12,9 @@
 
 .tabs {
   display: flex;
-  gap: 24px;
-  margin: 0 auto;
+  gap: 20px;
+  margin-left: 2rem;
+  border-bottom: 1px solid #D2D1D1;
 }
 
 .tab {
@@ -24,25 +23,27 @@
   font-size: 14px;
   padding: 8px 0;
   position: relative;
-  color: #6B7280; /* серый для неактивных */
+  color: #D2D1D1;
 }
 
 .active {
-  color: #000;  /* чёрный для активного */
+  color: #323F47; 
 }
 
 .active::after {
   content: "";
   position: absolute;
-  bottom: -1px;
+  bottom: -2px;
   left: 0;
-  height: 2px;
+  height: 3px;
   width: 100%;
-  background: #14B8A6; /* бирюзовая линия */
+  border-radius: 30px;
+  background: #14B8A6;
 }
 
 .user {
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-left: 20rem;
 }

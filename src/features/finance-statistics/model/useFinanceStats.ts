@@ -1,37 +1,52 @@
 import useSWR from 'swr';
-import { getOperations } from '@/entities/operation/api/getOperations';
-import { Operation, OperationType } from '@/entities/operation/model/types';
 import React from 'react';
+import { Operation, OperationType } from '@/entities/operation/model/types';
+import { getOperations } from '@/entities/operation/api/getOperations';
 
-const monthLabels = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+const MONTH_LABELS = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
 
-interface ChartPoint {
+export interface ChartPoint {
   month: string;
   revenue: number;
   expanses: number;
   income: number;
   debt: number;
 }
+export interface Totals extends Record<OperationType | 'total', number> {}
 
-interface Totals extends Record<OperationType | 'total', number> {}
-
-export const useFinanceStats = () => {
-  const { data, isLoading } = useSWR('/api/data', getOperations);
+export const useFinanceStats = (range: 'Неделя' | 'Месяц' | 'Год') => {
+  const { data, isLoading } = useSWR(['/api/data', { range }], getOperations);
 
   const stats = React.useMemo(() => {
-    const init: ChartPoint[] = monthLabels.map((m) => ({
+    const makeInit = (): ChartPoint[] => MONTH_LABELS.map((m) => ({
       month: m, revenue: 0, expanses: 0, income: 0, debt: 0,
     }));
-    const totals: Totals = {
-      revenue: 0, expanses: 0, income: 0, debt: 0, total: 0,
+
+    const init = {
+      ALL: makeInit(),
+      B2B: makeInit(),
+      B2C: makeInit(),
+    } as Record<'ALL' | 'B2B' | 'B2C', ChartPoint[]>;
+
+    const totals: Record<'ALL' | 'B2B' | 'B2C', Totals> = {
+      ALL: { revenue: 0, expanses: 0, income: 0, debt: 0, total: 0 },
+      B2B: { revenue: 0, expanses: 0, income: 0, debt: 0, total: 0 },
+      B2C: { revenue: 0, expanses: 0, income: 0, debt: 0, total: 0 },
     };
 
     (data?.data ?? []).forEach((op: Operation) => {
-      const m = new Date(op.date).getMonth();
-      init[m][op.type] += op.amount;
-      totals[op.type] += op.amount;
+      const idx = new Date(op.date).getMonth();
+      // обновляем конкретное подразделение
+      init[op.division][idx][op.type] += op.amount;
+      totals[op.division][op.type] += op.amount;
+      // обновляем общий пул
+      init.ALL[idx][op.type] += op.amount;
+      totals.ALL[op.type] += op.amount;
     });
-    totals.total = totals.revenue - totals.expanses;
+
+    totals.ALL.total = totals.ALL.revenue - totals.ALL.expanses;
+    totals.B2B.total = totals.B2B.revenue - totals.B2B.expanses;
+    totals.B2C.total = totals.B2C.revenue - totals.B2C.expanses;
 
     return { chartData: init, totals };
   }, [data]);

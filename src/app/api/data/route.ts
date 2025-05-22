@@ -1,17 +1,33 @@
 import { NextResponse } from 'next/server';
 import { faker } from '@faker-js/faker';
 
-type OperationType = 'expanses' | 'income' | 'revenue' | 'debt';
+const DIVISIONS = ['B2B', 'B2C'] as const;
+const TYPES = ['expanses', 'income', 'revenue', 'debt'] as const;
 
-export const GET = async () => {
-  const divs = ['B2B', 'B2C', 'Marketing', 'Sales'] as const;
-  const types: OperationType[] = ['expanses', 'income', 'revenue', 'debt'];
+export type OperationType = (typeof TYPES)[number];
+export interface Operation {
+  division: (typeof DIVISIONS)[number];
+  date: string;
+  amount: number;
+  type: OperationType;
+}
 
-  const data = Array.from({ length: 30 }, () => ({
-    division: faker.helpers.arrayElement(divs),
-    date: faker.date.recent({ days: 30 }).toISOString(),
-    amount: faker.number.int({ min: 5_000, max: 50_000 }),
-    type: faker.helpers.arrayElement(types),
+export const GET = async (req: Request) => {
+  const { searchParams } = new URL(req.url);
+  const divisionParam = searchParams.get('division');
+  const rangeParam = (searchParams.get('range') as 'week' | 'month' | 'year') ?? 'year';
+
+  // type‑guard, чтобы не «размывать» литералы до string
+  const isDivision = (v: unknown): v is 'B2B' | 'B2C' => v === 'B2B' || v === 'B2C';
+  const divisionFilter = isDivision(divisionParam) ? divisionParam : undefined;
+
+  const days = rangeParam === 'week' ? 7 : rangeParam === 'month' ? 30 : 365;
+
+  const data: Operation[] = Array.from({ length: 1_000 }, () => ({
+    division: divisionFilter ?? faker.helpers.arrayElement(DIVISIONS),
+    date: faker.date.recent({ days }).toISOString(),
+    amount: faker.number.int({ min: 5_000, max: 80_000 }),
+    type: faker.helpers.arrayElement(TYPES),
   }));
 
   return NextResponse.json({ data });

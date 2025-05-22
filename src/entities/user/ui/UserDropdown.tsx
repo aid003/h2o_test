@@ -24,7 +24,6 @@ const UserDropdown: FC = () => {
     <div className={styles.dropdown} ref={ref}>
       <button
         className={styles.button}
-        onClick={() => setOpen((prev) => !prev)}
         aria-label="User menu"
       >
         <img src={user.avatarUrl} alt={user.name} className={styles.avatar} />
@@ -32,7 +31,7 @@ const UserDropdown: FC = () => {
           <span className={styles.name}>{user.name}</span>
           <span className={styles.role}>{user.role}</span>
         </div>
-        <ChevronDown size={16} />
+        <ChevronDown className={styles.chevronDown} size={16}  onClick={() => setOpen((prev) => !prev)} />
       </button>
 
       {open && (

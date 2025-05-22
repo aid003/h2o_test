@@ -58,3 +58,7 @@
 .menuItem:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
+
+.chevronDown {
+  margin-left: 7rem;
+}

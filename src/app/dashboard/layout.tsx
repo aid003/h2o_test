@@ -9,7 +9,6 @@ export default function DashboardLayout({
   return (
     <div className={styles.wrapper}>
       <DashboardHeader />
-
       <main className={styles.main}>{children}</main>
     </div>
   );

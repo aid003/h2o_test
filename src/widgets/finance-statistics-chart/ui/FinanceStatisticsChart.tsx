@@ -1,17 +1,18 @@
-// src/widgets/finance-statistics-chart/ui/FinanceStatisticsChart.tsx
 "use client";
 
 import { Line } from "react-chartjs-2";
 import type { ChartOptions } from "chart.js";
 
-import "@/shared/lib/registerChart"; // регистрируем контроллеры Chart.js
-import { useFinanceStats } from "@/features/finance-statistics/model/useFinanceStats";
-import { Loader } from "@/shared/ui/Loader/Loader";
+import "@/shared/lib/registerChart";
+import {
+  ChartPoint,
+  Totals,
+} from "@/features/finance-statistics/model/useFinanceStats";
 
 import styles from "./FinanceStatisticsChart.module.css";
+import { JSX } from "react";
 
-/* ---------- константы ---------- */
-
+/* ---------- визуальные константы ---------- */
 const COLORS = {
   revenue: "#22c55e",
   expanses: "#06b6d4",
@@ -28,55 +29,66 @@ const LABELS = {
   total: "Итог",
 } as const;
 
-/* ---------- компонент ---------- */
+type Metric = keyof typeof LABELS;
 
-export const FinanceStatisticsChart = () => {
-  const { chartData, totals, isLoading } = useFinanceStats();
-  if (isLoading) return <Loader />;
+interface Props {
+  data: ChartPoint[];
+  totals: Totals;
+  header?: React.ReactNode;
+}
 
-  /* данные для Chart.js */
-  const labels = chartData.map((p) => p.month);
+export const FinanceStatisticsChart = ({
+  data,
+  totals,
+  header,
+}: Props): JSX.Element => {
+  /* ---------- данные для Chart.js ---------- */
+  const labels = data.map((p) => p.month);
 
   const datasets = [
     {
       label: LABELS.revenue,
-      data: chartData.map((p) => p.revenue),
+      data: data.map((p) => p.revenue),
       borderColor: COLORS.revenue,
-      pointRadius: 0,
+      pointRadius: 3,
+      pointHoverRadius: 6,
       tension: 0.4,
     },
     {
       label: LABELS.expanses,
-      data: chartData.map((p) => p.expanses),
+      data: data.map((p) => p.expanses),
       borderColor: COLORS.expanses,
-      pointRadius: 0,
+      pointRadius: 3,
+      pointHoverRadius: 6,
       tension: 0.4,
     },
     {
       label: LABELS.income,
-      data: chartData.map((p) => p.income),
+      data: data.map((p) => p.income),
       borderColor: COLORS.income,
-      pointRadius: 0,
+      pointRadius: 3,
+      pointHoverRadius: 6,
       tension: 0.4,
     },
     {
       label: LABELS.debt,
-      data: chartData.map((p) => p.debt),
+      data: data.map((p) => p.debt),
       borderColor: COLORS.debt,
-      pointRadius: 0,
+      pointRadius: 3,
+      pointHoverRadius: 6,
       tension: 0.4,
     },
     {
       label: LABELS.total,
-      data: chartData.map((p) => p.revenue - p.expanses),
+      data: data.map((p) => p.revenue - p.expanses),
       borderColor: COLORS.total,
       borderDash: [6, 4],
-      pointRadius: 0,
+      pointRadius: 3,
+      pointHoverRadius: 6,
       tension: 0.4,
     },
   ];
 
-  /* опции графика */
   const options: ChartOptions<"line"> = {
     maintainAspectRatio: false,
     interaction: { mode: "nearest", intersect: false },
@@ -84,44 +96,46 @@ export const FinanceStatisticsChart = () => {
       legend: { display: false },
       tooltip: {
         callbacks: {
-          label: (ctx) => {
-            const value = ctx.parsed.y ?? 0;
-            return `${ctx.dataset.label}: ${value.toLocaleString("ru-RU")} ₽`;
-          },
+          label: (ctx) =>
+            `${ctx.dataset.label}: ${ctx.parsed.y?.toLocaleString("ru-RU")} ₽`,
         },
       },
     },
     scales: {
-      x: { grid: { display: false }, ticks: { font: { size: 12 } } },
+      x: {
+        grid: { display: false },
+        ticks: { font: { size: 12 } },
+      },
       y: {
         ticks: {
           font: { size: 12 },
-          callback: (v: string | number) => Number(v).toLocaleString("ru-RU"),
+          callback: (v: string | number) =>
+            Number(v).toLocaleString("ru-RU"),
         },
       },
     },
   };
 
   /* ---------- render ---------- */
-
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Общая статистика</h2>
+      {header && <div className={styles.header}>{header}</div>}
 
       <div className={styles.chartWrapper}>
         <Line data={{ labels, datasets }} options={options} />
       </div>
 
-      {/* кастомная легенда */}
       <div className={styles.legend}>
-        {Object.entries(totals as Record<string, number>).map(([k, v]) => (
+        {(
+          Object.entries(totals) as [Metric, number][]
+        ).map(([k, v]) => (
           <div key={k} className={styles.legendItem}>
             <span
               className={styles.bullet}
-              style={{ background: COLORS[k as keyof typeof COLORS] }}
+              style={{ background: COLORS[k] }}
             />
             <span>
-              {LABELS[k as keyof typeof LABELS]}:&nbsp;
+              {LABELS[k]}:&nbsp;
               <b>{v.toLocaleString("ru-RU")} ₽</b>
             </span>
           </div>

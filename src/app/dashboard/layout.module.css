@@ -2,7 +2,8 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
+  padding-left: .2rem;
 }
 
 .container {
@@ -15,12 +16,7 @@
   position: relative;
   z-index: 1;
   flex: 1;
-  padding: 2rem;
   background-color: #f9fafb;
-  /* скругляем только левую сторону */
   border-top-left-radius: 56px;
   border-bottom-left-radius: 56px;
-  /* смещаем, чтобы видеть фон sidebar в вырезах */
-  margin-left: -56px;
-  padding-left: calc(2rem + 56px);
 }

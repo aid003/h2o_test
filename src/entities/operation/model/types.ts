@@ -1,7 +1,6 @@
-export type OperationType = 'revenue' | 'expanses' | 'income' | 'debt';
-
+export type OperationType = 'expanses' | 'income' | 'revenue' | 'debt';
 export interface Operation {
-  division: string;
+  division: 'B2B' | 'B2C';
   date: string;
   amount: number;
   type: OperationType;
