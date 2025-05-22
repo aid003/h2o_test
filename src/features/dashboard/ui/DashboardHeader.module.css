@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   height: 64px;
-  background-color: white;
+  background-color: inherit;
 }
 
 .navButtons {
@@ -14,7 +14,7 @@
   display: flex;
   gap: 20px;
   margin-left: 2rem;
-  border-bottom: 1px solid #D2D1D1;
+  border-bottom: 1px solid #d2d1d1;
 }
 
 .tab {
@@ -23,11 +23,11 @@
   font-size: 14px;
   padding: 8px 0;
   position: relative;
-  color: #D2D1D1;
+  color: #d2d1d1;
 }
 
 .active {
-  color: #323F47; 
+  color: #323f47;
 }
 
 .active::after {
@@ -38,7 +38,7 @@
   height: 3px;
   width: 100%;
   border-radius: 30px;
-  background: #14B8A6;
+  background: #14b8a6;
 }
 
 .user {
