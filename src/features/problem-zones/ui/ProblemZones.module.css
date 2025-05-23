@@ -1,0 +1,56 @@
+.container {
+  background: white;
+  border-radius: 32px;
+  padding: 16px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.header {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.icon {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.medium {
+  background-color: #f59e0b; /* оранжевый */
+}
+
+.high {
+  background-color: #ef4444; /* красный */
+}
+
+.label {
+  flex: 1;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.amount {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.error {
+  color: #b91c1c;
+  font-size: 0.875rem;
+}

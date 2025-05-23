@@ -16,6 +16,6 @@
   position: relative;
   z-index: 1;
   flex: 1;
-  /* background-color: #f9fafb; */
-  background-color: aquamarine;
+  overflow-y: auto;
+  background-color: #f9fafb;
 }
