@@ -1,14 +1,14 @@
-'use client';
-import React from 'react';
-import clsx from 'clsx';
-import { LucideIcon } from 'lucide-react';
-import styles from './IconNavButton.module.css';
+"use client";
+
+import React from "react";
+import clsx from "clsx";
+import { LucideIcon } from "lucide-react";
+import styles from "./IconNavButton.module.css";
 
 interface Props {
   icon: LucideIcon;
   onClick?: () => void;
   disabled?: boolean;
-  /** Если true — иконка повёрнута на 180° */
   rotate?: boolean;
 }
 
@@ -32,7 +32,7 @@ export const IconNavButton: React.FC<Props> = ({
       <Icon
         size={20}
         strokeWidth={2}
-        style={rotate ? { transform: 'rotate(180deg)' } : undefined}
+        style={rotate ? { transform: "rotate(180deg)" } : undefined}
       />
     </button>
   );

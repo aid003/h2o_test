@@ -12,7 +12,6 @@ import {
 import styles from "./FinanceStatisticsChart.module.css";
 import { JSX } from "react";
 
-/* ---------- визуальные константы ---------- */
 const COLORS = {
   revenue: "#22c55e",
   expanses: "#06b6d4",
@@ -42,7 +41,6 @@ export const FinanceStatisticsChart = ({
   totals,
   header,
 }: Props): JSX.Element => {
-  /* ---------- данные для Chart.js ---------- */
   const labels = data.map((p) => p.month);
 
   const datasets = [
@@ -116,7 +114,6 @@ export const FinanceStatisticsChart = ({
     },
   };
 
-  /* ---------- render ---------- */
   return (
     <div className={styles.container}>
       {header && <div className={styles.header}>{header}</div>}

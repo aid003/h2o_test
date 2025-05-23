@@ -16,8 +16,6 @@ export const GET = async (req: Request) => {
   const { searchParams } = new URL(req.url);
   const divisionParam = searchParams.get('division');
   const rangeParam = (searchParams.get('range') as 'Неделя' | 'Месяц' | 'Год') ?? 'Год';
-
-  // type‑guard, чтобы не «размывать» литералы до string
   const isDivision = (v: unknown): v is 'B2B' | 'B2C' => v === 'B2B' || v === 'B2C';
   const divisionFilter = isDivision(divisionParam) ? divisionParam : undefined;
 

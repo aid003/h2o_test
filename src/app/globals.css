@@ -1,9 +1,31 @@
 @import "tailwindcss";
-@import 'modern-normalize/modern-normalize.css';
+@import "modern-normalize/modern-normalize.css";
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/proximanova_regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/proximanova_bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("/fonts/proximanova_light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
 
 body {
   background: white;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Proxima Nova", Arial, Helvetica, sans-serif;
   box-sizing: border-box;
 }

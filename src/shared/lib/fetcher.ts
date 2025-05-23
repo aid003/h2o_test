@@ -1,4 +1,3 @@
-// Универсальный fetcher с дженериком
 export const fetcher = async <T = unknown>(
   input: RequestInfo,
   init?: RequestInit,

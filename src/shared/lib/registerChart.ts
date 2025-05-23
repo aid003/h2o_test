@@ -1,4 +1,3 @@
-// src/shared/lib/registerChart.ts
 import {
   Chart as ChartJS,
   CategoryScale,

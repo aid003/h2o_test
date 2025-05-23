@@ -1,4 +1,3 @@
-// src/features/dashboard/model/tabs.ts
 export interface TabItem {
   label: string;
   path: string;

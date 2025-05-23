@@ -6,11 +6,6 @@ export interface ProblemZone extends Operation {
   severity: "medium" | "high";
 }
 
-/**
- * Хук для загрузки проблемных зон:
- * range — период ("Неделя" | "Месяц" | "Год"),
- * division — подразделение ("B2B" | "B2C") или undefined для всех.
- */
 export function useProblemZones(params: {
   range?: "Неделя" | "Месяц" | "Год";
   division?: "B2B" | "B2C";
